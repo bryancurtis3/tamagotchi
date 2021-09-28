@@ -1,7 +1,7 @@
 console.log("Sanity ✅");
 
 // Commented out for streamlined testing
-// $("#name-modal").show();
+$("#name-modal").show();
 
 $("#save-name").on("click", function(event) {
     $('#name-modal').hide();
@@ -11,6 +11,7 @@ $("#save-name").on("click", function(event) {
 
 const getName = function getName() {
     game.name = $("#char-name").val();
+    $("#character").text(`Character: ${game.name}`);
 }
 
 
@@ -64,8 +65,10 @@ const game = {
             //     clearInterval(interval);
             // }
             
+            // Stage display value
+            $("#stage").text(`Evolution: ${game.stage}`);
 
-            // console.log(game.time);
+            // Progress bar
             $("#dynamic").attr("aria-valuenow", game.progress).css("width", game.progress  + "%");
         }, 1000);
     },
@@ -139,12 +142,10 @@ const game = {
             console.log($("#character-sprite").attr("src"));
             game.stage++;
         };
-
-
-    }
+    },
 }; // ===== END OF GAME OBJECT =====
 
-console.log(Object.keys(game.values)[0])
+// console.log(Object.keys(game.values)[0])
 
 // Button onClick value reducer funtions
 $("#hunger").on("click", function(event) {

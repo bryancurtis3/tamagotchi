@@ -9,3 +9,14 @@ html, body {
 .col {
     border: 2px solid black;
 }
+
+.state {
+    text-align: center;
+    font-size: 20px;
+}
+
+#title {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 30px;
+}

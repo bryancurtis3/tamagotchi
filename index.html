@@ -18,13 +18,24 @@
 
     <div class="container h-100 d-flex flex-column">
 
+        <!-- Progress Bar -->
+        <div class="row h-25 align-items-center">
+            <div class="col">
+                <div class="progress style="height: 50px;">
+                    <div id="dynamic" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Character -->
         <div class="row h-75 align-items-center">
             <div class="col d-flex justify-content-center">
                 <img src="assets/cell.png" class="img-fluid">
             </div>
         </div>
 
-        <div class="row">
+        <!-- Buttons -->
+        <div class="row h-25 align-items-center">
             <div class="col d-flex justify-content-center">
                 <button type="button" class="btn btn-success">Hunger</button>
             </div>

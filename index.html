@@ -11,12 +11,32 @@
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- JS -->
-    <script src="scripts/app.js"></script>
+    <script src="scripts/app.js" defer></script>
     <title>Tamagotchi</title>
 </head>
 <body>
 
     <div class="container h-100 d-flex flex-column">
+
+        <!-- Character Naming Modal / Form -->
+        <!-- <input class="form-control" type="text" placeholder="Default input" aria-label="default input example"> -->
+        <div id="name-modal" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Character Name</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please enter your characters name.</p>
+                        <input id="char-name" class="form-control" type="text" placeholder="Character Name Here" aria-label="Character name input box">
+                    </div>
+                    <div class="modal-footer">
+                        <button id="save-name" type="button" class="btn btn-primary">Save name</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Progress Bar -->
         <div class="row h-25 align-items-center">

@@ -8,3 +8,8 @@ Welcome to the Readme!
 - There are 3 buttons that control various stats of the character
 - The user is tasked with pressing these buttons to maintain a specifc range of values
 - If the user allows the chacters values to exceed the alloted range, the character will die
+
+
+=== Wireframe ===
+
+![A wireframe of the page layout](/assets/wireframe.png "The rough page layout of the game")

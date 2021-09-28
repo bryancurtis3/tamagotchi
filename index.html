@@ -4,9 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project One</title>
+    <!-- Frameworks / Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- JS -->
+    <script src="scripts/app.js"></script>
+    <title>Tamagotchi</title>
 </head>
 <body>
-    
+
+    <div class="container h-100 d-flex flex-column">
+
+        <div class="row h-75 align-items-center">
+            <div class="col d-flex justify-content-center">
+                <img src="assets/cell.png" class="img-fluid">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <button type="button" class="btn btn-success">Hunger</button>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <button type="button" class="btn btn-success">Sleepiness</button>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <button type="button" class="btn btn-success">Boredom</button>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>

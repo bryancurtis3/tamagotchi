@@ -2,6 +2,8 @@
         
 // taken from 
 
+// console.log(Object.keys(game.values)[0])
+
         // DRYING ATTEMPT -- failed
         // for (let i = 0; i < Object.values(game.values).length; i++) {
         //     let value = Object.values(game.values)[i];

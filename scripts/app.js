@@ -1,5 +1,13 @@
 console.log("Sanity ✅");
 
+// ***** Important Note *****
+    // hunger === resilience
+    // sleep === genetics
+    // bored === instinct
+
+
+
+
 // Commented out for streamlined testing
 // $("#name-modal").show();
 
@@ -17,6 +25,20 @@ const getName = function getName() {
 
 
 // === INTERVAL / TIMER ===
+// const direction = setInterval(function(){
+//     let movement = $(".x").css("transform");
+//     movement = movement.split("(");
+//     movement = movement[1].split(",");
+//     movement = parseInt(movement[4]);
+//     // console.log(movement)
+//     if (movement <= 8) {
+//         $("#sprite").css("-webkit-transform", "")
+//         console.log($("#character-sprite").css("-webkit-transform"));
+//     } else if (movement >= 660) {
+//         $("#sprite").css("-webkit-transform", "scaleX(-1);")
+//         console.log($("#character-sprite").css("-webkit-transform"));
+//     }
+// }, 20);
 
 
 
@@ -41,7 +63,9 @@ const game = {
     sleep: 0,
     bored: 0,
 
-    // Game Methods
+    // ===== Game Methods =====
+
+    // Pretty much everything to do with timers at the moment
     startTimer() {
         const interval = setInterval(function(){
             game.time++;
@@ -55,17 +79,23 @@ const game = {
             // game.values.hunger++;
             // game.values.sleep++;
             // game.values.bored++;
-            $("#hunger").text(`Hunger ${game.hunger}`);
-            $("#sleep").text(`Sleepiness ${game.sleep}`);
-            $("#bored").text(`Boredom ${game.bored}`);
+            $("#hunger").text(`Resilience ${game.hunger}`);
+            $("#sleep").text(`Genetics ${game.sleep}`);
+            $("#bored").text(`Instinct ${game.bored}`);
             game.buttonColorChange();
             game.progressCheck();
             // THIS IS IMPORTANT, LOSS CONDITION, ENABLE AFTER TESTING
             // if (game.rangeCheck() === true) {
-            //     alert("You Lose!");
+            //     $("#character-sprite").attr("src", "assets/skull.png");
+            //     // Maybe change from alert, prevents sprite from changing
+            //     alert("You Perish!");
             //     clearInterval(interval);
             // }
             
+            // TEMP CODE MAYBE
+
+
+
             // Stage display value
             $("#stage").text(`Evolution: ${game.stage}`);
 
@@ -77,7 +107,7 @@ const game = {
         }, 1000);
     },
 
-    // Function to change button color based on value
+    // Method to change button color based on value
     buttonColorChange() {
 
         // Hunger Button
@@ -108,7 +138,7 @@ const game = {
         };
     },
 
-    // Trying to organize and condense button code into functions
+    // Considering organizing and condensing button code into functions
     buttonClick() {
 
     },
@@ -131,9 +161,9 @@ const game = {
         if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11) return true;
     },
 
+    // Checks for game progression and changes evolution and sprite accordingly
     progressCheck() {
         
-        // Checks for game progression and changes evolution and sprite accordingly
         if (game.progress === 100 && game.stage === 1) {
             game.progress = 0;
             $("#character-sprite").attr("src", "assets/amoeba.png");
@@ -168,27 +198,31 @@ const game = {
 
 
 
-// console.log(Object.keys(game.values)[0])
 
 // Button onClick value reducer funtions
 $("#hunger").on("click", function(event) {
-    $("#hunger").text(`Hunger ${game.hunger}`);
+    $("#hunger").text(`Resilience ${game.hunger}`);
     game.hunger--;
     game.buttonColorChange();
     game.rangeCheck();
     game.clicks.hunger++;
 });
 $("#sleep").on("click", function(event) {
-    $("#sleep").text(`Sleepiness ${game.sleep}`);
+    $("#sleep").text(`Genetics ${game.sleep}`);
     game.sleep--;
     game.buttonColorChange();
     game.rangeCheck();
     game.clicks.sleep++;
 });
 $("#bored").on("click", function(event) {
-    $("#bored").text(`Boredom ${game.bored}`);
+    $("#bored").text(`Instinct ${game.bored}`);
     game.bored--;
     game.buttonColorChange();
     game.rangeCheck();
     game.clicks.bored++;
+});
+
+// This is my favorite code in this
+$("#reset").on("click", function(event) {
+    window.location.reload(false); 
 });

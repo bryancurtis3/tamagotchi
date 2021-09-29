@@ -28,8 +28,29 @@ main {
     color: black;
 }
 
-.progress {
-    
+/* .progress {
+    background-color: transparent;
+} */
+
+.btn:hover {
+    filter: brightness(120%);
+    transition: 0.2 ease-in-out;
+}
+
+#reset {
+    background-color: #277da1;
+    font-size: 12px;
+    width: 60px;
+    position: absolute;
+    right: 0;
+    color: whitesmoke;
+    opacity: .7;
+}
+
+#reset:hover {
+    background-color: whitesmoke;
+    opacity: 1;
+    color: #277da1;
 }
 
 /* Not sure if I wanna keep this or not */
@@ -39,7 +60,7 @@ main {
 
 #header {
     border: 12px solid #4d908e;
-    border-radius: 5px;
+    margin: 5px;
 }
 
 #title {
@@ -82,16 +103,19 @@ main {
     height: var(--width); */
 }
 
-/* .sprite {
-    animation-duration: 1s;
-} */
+
+/* -webkit-transform: scaleX(-1);
+transform: scaleX(-1); */
+#sprite {
+    /* -webkit-transform: scaleX(-1);
+    transform: scaleX(-1); */
+}
   
 @keyframes x {
     100% {
         transform: translateX(calc(75vw));
-
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
+        /* -webkit-transform: scaleX(-1);
+        transform: scaleX(-1); */
     }
 }
 

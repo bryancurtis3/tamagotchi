@@ -21,33 +21,36 @@ html, body {
     font-size: 30px;
 }
 
-/* Rough CSS Outline courtesy of Scott Kellum */
+/* Rough CSS outline / concept courtesy of Scott Kellum */
 
 :root {
-    /* --width: 180px; */
     --x-speed: 5s;
     --y-speed: 3s;
-    --transition-speed: 2.2s;
-  }
+    /* --transition-speed: 2.2s; */
+}
   
-  .x {
+.x {
     animation: x var(--x-speed) linear infinite alternate;
     /* width: var(--width);
     height: var(--width); */
-  }
-  .y {
+}
+.y {
     animation: y var(--y-speed) linear infinite alternate;
     /* width: var(--width);
     height: var(--width); */
-  }
+}
   
-  @keyframes x {
+@keyframes x {
     100% {
       transform: translateX(calc(75vw));
+    
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
     }
-  }
-  @keyframes y {
+}
+
+@keyframes y {
     100% {
-      transform: translateY(calc(42vh));
+        transform: translateY(calc(42vh));
     }
-  }
+}

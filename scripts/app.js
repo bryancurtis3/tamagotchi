@@ -131,15 +131,23 @@ const game = {
     progressCheck() {
         
         if (game.progress === 100 && game.stage === 1) {
-            console.warn("100 reached")
             game.progress = 0;
             $("#character-sprite").attr("src", "assets/amoeba.png");
             console.log($("#character-sprite").attr("src"))
             game.stage++;
         } else if (game.progress === 100 && game.stage === 2) {
-            console.warn("200 reached")
             game.progress = 0;
             $("#character-sprite").attr("src", "assets/fish.png");
+            console.log($("#character-sprite").attr("src"));
+            game.stage++;
+        } else if (game.progress === 100 && game.stage === 3) {
+            game.progress = 0;
+            $("#character-sprite").attr("src", "assets/primate.png");
+            console.log($("#character-sprite").attr("src"));
+            game.stage++;
+        } else if (game.progress === 100 && game.stage === 4) {
+            game.progress = 0;
+            $("#character-sprite").attr("src", "assets/caveman.gif");
             console.log($("#character-sprite").attr("src"));
             game.stage++;
         };

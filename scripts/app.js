@@ -13,9 +13,18 @@ console.log("Sanity ✅");
 
 // game.startTimer();
 $("#save-name").on("click", function(event) {
-    $('#name-modal').hide();
+    $("#name-modal").hide();
     getName();
     game.startTimer();
+});
+
+$("#play-again").on("click", function(event) {
+    window.location.reload(false); 
+});
+
+$("#admit-defeat").on("click", function(event) {
+    $("#loss-modal").hide();
+    // add something dramatic
 });
 
 const getName = function getName() {
@@ -88,7 +97,7 @@ const game = {
             // if (game.rangeCheck() === true) {
             //     $("#character-sprite").attr("src", "assets/skull.png");
             //     // Maybe change from alert, prevents sprite from changing
-            //     alert("You Perish!");
+            //     $("#loss-modal").show();
             //     clearInterval(interval);
             // }
             

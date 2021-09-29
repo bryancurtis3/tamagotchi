@@ -21,11 +21,14 @@ main {
     background-color: #90be6d;
     border-radius: 8px;
     font-size: 20px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.btn {
+.col .btn {
     background-color: #90be6d;
     color: black;
+    z-index: 10;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 /* .progress {
@@ -45,6 +48,7 @@ main {
     right: 0;
     color: whitesmoke;
     opacity: .7;
+    box-shadow: none;
 }
 
 #reset:hover {
@@ -70,6 +74,26 @@ main {
     border-radius: 10px;
     margin-top: 10px;
     font-size: 30px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
+}
+
+#admit-defeat {
+    background-color: #f9844a;
+    opacity: .5;
+    color: white;
+}
+
+#admit-defeat:hover {
+    opacity: 1;
+}
+
+#play-again {
+    background-color: #277da1;
+    color: white;
+}
+
+#play-again:hover {
+    filter: brightness(120%);
 }
 
 #stage {

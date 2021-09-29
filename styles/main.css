@@ -32,6 +32,11 @@ main {
     
 }
 
+/* Not sure if I wanna keep this or not */
+#main-container {
+    max-width: 800px;
+}
+
 #header {
     border: 12px solid #4d908e;
     border-radius: 5px;
@@ -76,13 +81,17 @@ main {
     /* width: var(--width);
     height: var(--width); */
 }
+
+/* .sprite {
+    animation-duration: 1s;
+} */
   
 @keyframes x {
     100% {
-      transform: translateX(calc(75vw));
-    
-      -webkit-transform: scaleX(-1);
-      transform: scaleX(-1);
+        transform: translateX(calc(75vw));
+
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
     }
 }
 

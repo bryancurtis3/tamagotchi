@@ -18,10 +18,7 @@ const getName = function getName() {
 
 // === INTERVAL / TIMER ===
 
-// let gameTime = 0;
-// setInterval(function(){
-//     game.time += 1;
-// }, 1000);
+
 
 const game = {
     time: 0,
@@ -63,6 +60,7 @@ const game = {
             $("#bored").text(`Boredom ${game.bored}`);
             game.buttonColorChange();
             game.progressCheck();
+            // THIS IS IMPORTANT, LOSS CONDITION, ENABLE AFTER TESTING
             // if (game.rangeCheck() === true) {
             //     alert("You Lose!");
             //     clearInterval(interval);
@@ -135,6 +133,7 @@ const game = {
 
     progressCheck() {
         
+        // Checks for game progression and changes evolution and sprite accordingly
         if (game.progress === 100 && game.stage === 1) {
             game.progress = 0;
             $("#character-sprite").attr("src", "assets/amoeba.png");
@@ -158,6 +157,16 @@ const game = {
         };
     },
 }; // ===== END OF GAME OBJECT =====
+
+
+
+
+
+
+
+
+
+
 
 // console.log(Object.keys(game.values)[0])
 

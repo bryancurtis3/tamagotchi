@@ -1,25 +1,62 @@
 html, body {
     height: 100%;
+    font-family: 'Roboto', sans-serif;
 }
 
-.row {
+main {
+    height: 100vh;
+    background-color: #4d908e;
+}
+
+/* .row {
     border: 1px solid gray;
 }
 
 .col {
     border: 2px solid black;
-}
+} */
 
 .state {
     text-align: center;
+    background-color: #90be6d;
+    border-radius: 8px;
     font-size: 20px;
+}
+
+.btn {
+    background-color: #90be6d;
+    color: black;
+}
+
+.progress {
+    
+}
+
+#header {
+    border: 12px solid #4d908e;
+    border-radius: 5px;
 }
 
 #title {
     text-align: center;
+    background-color: #577590;
+    color: whitesmoke;
+    border-radius: 10px;
     margin-top: 10px;
     font-size: 30px;
 }
+
+#stage {
+    /* background-color: aquamarine;2 */
+}
+
+
+
+
+
+
+
+
 
 /* Rough CSS outline / concept courtesy of Scott Kellum */
 

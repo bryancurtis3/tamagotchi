@@ -27,6 +27,7 @@ const game = {
     time: 0,
     evolutions: 0,
     progress: 0,
+    totalProgress: 0,
     stage: 1,
     name: '',
     // values: {
@@ -48,6 +49,7 @@ const game = {
         const interval = setInterval(function(){
             game.time++;
             game.progress += 5;
+            game.totalProgress += 1;
             
             // button code
             game.hunger++;
@@ -71,6 +73,9 @@ const game = {
 
             // Progress bar
             $("#dynamic").attr("aria-valuenow", game.progress).css("width", game.progress  + "%");
+
+            // Total progress bar
+            $("#total-progress").attr("aria-valuenow", game.totalProgress).css("width", game.totalProgress  + "%");
         }, 1000);
     },
 
@@ -79,29 +84,29 @@ const game = {
 
         // Hunger Button
         if (game.hunger < 3) {
-            $("#hunger").removeClass("btn-warning btn-danger").addClass("btn-success");
+            $("#hunger").css("background-color", "#90be6d").css("color", "black");
         } else if (game.hunger >= 3 && game.hunger <= 6) {
-            $("#hunger").removeClass("btn-danger btn-success").addClass("btn-warning");
+            $("#hunger").css("background-color", "#f8961e").css("color", "black");
         } else if (game.hunger > 6) {
-            $("#hunger").removeClass("btn-success btn-warning").addClass("btn-danger");
+            $("#hunger").css("background-color", "#f94144").css("color", "white");
         };
 
         // Sleep Button
         if (game.sleep < 3) {
-            $("#sleep").removeClass("btn-warning btn-danger").addClass("btn-success");
+            $("#sleep").css("background-color", "#90be6d").css("color", "black");
         } else if (game.sleep >= 3 && game.sleep <= 6) {
-            $("#sleep").removeClass("btn-danger btn-success").addClass("btn-warning");
+            $("#sleep").css("background-color", "#f8961e").css("color", "black");
         } else if (game.sleep > 6) {
-            $("#sleep").removeClass("btn-success btn-warning").addClass("btn-danger");
+            $("#sleep").css("background-color", "#f94144").css("color", "white");
         };
 
         // Bored Button
         if (game.bored < 3) {
-            $("#bored").removeClass("btn-warning btn-danger").addClass("btn-success");
+            $("#bored").css("background-color", "#90be6d").css("color", "black");
         } else if (game.bored >= 3 && game.bored <= 6) {
-            $("#bored").removeClass("btn-danger btn-success").addClass("btn-warning");
+            $("#bored").css("background-color", "#f8961e").css("color", "black");
         } else if (game.bored > 6) {
-            $("#bored").removeClass("btn-success btn-warning").addClass("btn-danger");
+            $("#bored").css("background-color", "#f94144").css("color", "white");
         };
     },
 

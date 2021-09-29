@@ -12,10 +12,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- JS -->
     <script src="scripts/app.js" defer></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
     <title>Tamagotchi</title>
 </head>
 <body>
-
+    <main>
     <div class="container h-100 d-flex flex-column">
 
         <!-- Character Naming Modal / Form -->
@@ -36,28 +41,39 @@
             </div>
         </div>
 
-        <!-- Game Title -->
-        <div class="row">
-            <div id="title" class="col">
-                The (Real) Game of Life
+        <!-- Header div for styling -->
+        <div id="header" class="my-2">
+            <!-- Game Title -->
+            <div class="row">
+                <div class="col"></div>
+                <div id="title" class="col">
+                    Tamagotchi
+                </div>
+                <div class="col"></div>
+            </div>
+
+            <!-- Game State Values -->
+            <div class="row pt-4 align-items-center">
+                <div class="col"></div>
+                <div id="stage" class="col-4 state">
+                    Evolution
+                </div>
+                <div class="col"></div>
+                <div id="character" class="col-4 state">
+                    Character
+                </div>
+                <div class="col"></div>
             </div>
         </div>
 
-        <!-- Game State Values -->
-        <div class="row h-25 align-items-center">
-            <div id="stage" class="col state">
-                Evolution
-            </div>
-            <div id="character" class="col state">
-                Character
-            </div>
-        </div>
-
-        <!-- Progress Bar -->
+        <!-- Progress Bars -->
         <div class="row align-items-center">
             <div class="col">
-                <div class="progress style="height: 50px;">
+                <div class="progress my-1" style="height: 25px">
                     <div id="dynamic" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                </div>
+                <div class="progress my-1" style="height: 25px">
+                    <div id="total-progress" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -70,18 +86,19 @@
         </div>
 
         <!-- Buttons -->
-        <div class="row h-25 align-items-center">
+        <div class="row my-5 align-items-center">
             <div class="col d-flex justify-content-center">
-                <button id="hunger" type="button" class="btn btn-success">Hunger</button>
+                <button id="hunger" type="button" class="btn">Hunger</button>
             </div>
             <div class="col d-flex justify-content-center">
-                <button id="sleep" type="button" class="btn btn-success">Sleepiness</button>
+                <button id="sleep" type="button" class="btn">Sleepiness</button>
             </div>
             <div class="col d-flex justify-content-center">
-                <button id="bored" type="button" class="btn btn-success">Boredom</button>
+                <button id="bored" type="button" class="btn">Boredom</button>
             </div>
         </div>
 
     </div>
+    </main>
 </body>
 </html>

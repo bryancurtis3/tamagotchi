@@ -1,8 +1,9 @@
 console.log("Sanity ✅");
 
 // Commented out for streamlined testing
-$("#name-modal").show();
+// $("#name-modal").show();
 
+// game.startTimer();
 $("#save-name").on("click", function(event) {
     $('#name-modal').hide();
     getName();

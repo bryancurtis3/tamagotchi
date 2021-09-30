@@ -87,12 +87,12 @@ main {
 
 #admit-defeat {
     background-color: #f9844a;
-    opacity: .5;
+    filter: brightness(80%);
     color: white;
 }
 
 #admit-defeat:hover {
-    opacity: 1;
+    filter: brightness(110%);
 }
 
 #play-again {

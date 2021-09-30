@@ -101,12 +101,12 @@ const game = {
             game.buttonColorChange();
             game.progressCheck();
             // THIS IS IMPORTANT, LOSS CONDITION, ENABLE AFTER TESTING
-            // if (game.rangeCheck() === true) {
-            //     $characterSprite.attr("src", "assets/skull.png");
-            //     // Maybe change from alert, prevents sprite from changing
-            //     $("#loss-modal").show();
-            //     clearInterval(interval);
-            // }
+            if (game.rangeCheck() === true) {
+                $characterSprite.attr("src", "assets/skull.png");
+                // Maybe change from alert, prevents sprite from changing
+                $("#loss-modal").show();
+                clearInterval(interval);
+            }
             
             // TEMP CODE MAYBE
 
@@ -134,6 +134,7 @@ const game = {
                 $("#character").text(`Character: ?????`);
                 $(".btn").addClass("btn-lg");
                 $characterSprite.attr("src", "");
+                clearInterval(interval);
             }
         }, 1000);
     },
@@ -195,6 +196,20 @@ const game = {
     // Checks for game progression and changes evolution and sprite accordingly
     progressCheck() {
         
+        // MOVE THIS TO rangeCheck() ??
+        // Jellyfish ending
+        if (game.progress === 100 && game.stage === 2 && game.clicks.hunger / game.clicks.sleep >= 2 && game.clicks.hunger / game.clicks.bored >= 2) {
+            $characterSprite.attr("src", "assets/jelly.gif");
+            $("#loss-text").text("You are a jellyfish... this is your final form");
+            $("#admit-defeat").text("Remain gelatinous");
+            $("#loss-modal").show();
+
+            console.log($characterSprite.attr("src"));
+            // Fix this
+            clearInterval(interval);
+            return;
+        };
+
         if (game.progress === 100 && game.stage === 1) {
             game.progress = 0;
             $characterSprite.attr("src", "assets/amoeba.png");

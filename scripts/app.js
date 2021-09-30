@@ -18,7 +18,7 @@ const $characterSprite = $("#character-sprite");
 
 
 // Commented out for streamlined testing
-// $("#name-modal").show();
+$("#name-modal").show();
 
 // game.startTimer();
 $("#save-name").on("click", function(event) {
@@ -201,7 +201,20 @@ const game = {
         if (game.progress === 100 && game.stage === 2 && game.clicks.hunger / game.clicks.sleep >= 2 && game.clicks.hunger / game.clicks.bored >= 2) {
             $characterSprite.attr("src", "assets/jelly.gif");
             $("#loss-text").text("You are a jellyfish... this is your final form");
-            $("#admit-defeat").text("Remain gelatinous");
+            $("#admit-defeat").text("Remain Gelatinous");
+            $("#loss-modal").show();
+
+            console.log($characterSprite.attr("src"));
+            // Fix this
+            clearInterval(interval);
+            return;
+        };
+
+        // Gator ending
+        if (game.progress === 100 && game.stage === 3 && game.clicks.bored / game.clicks.sleep >= 2 && game.clicks.bored / game.clicks.hunger >= 2) {
+            $characterSprite.attr("src", "assets/gator.png");
+            $("#loss-text").text("You are an alligaor... this is your final form");
+            $("#admit-defeat").text("Embrace Gaterdome");
             $("#loss-modal").show();
 
             console.log($characterSprite.attr("src"));

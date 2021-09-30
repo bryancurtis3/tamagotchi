@@ -11,12 +11,31 @@ console.log("Sanity ✅");
 const $resilience = $("#hunger");
 const $genetics = $("#sleep");
 const $instinct = $("#bored");
-
 const $characterSprite = $("#character-sprite");
 
 
 // Commented out for streamlined testing
-// $("#name-modal").show();
+$("#name-modal").show();
+
+$("#save-name").on("click", function(event) {
+    $("#name-modal").hide();
+    getName();
+    starter();
+});
+
+$("#play-again").on("click", function(event) {
+    window.location.reload(false); 
+});
+
+$("#admit-defeat").on("click", function(event) {
+    $("#loss-modal").hide();
+    // add something dramatic
+});
+
+const getName = function getName() {
+    game.name = $("#char-name").val();
+    $("#character").text(`Character: ${game.name}`);
+}
 
 
 
@@ -37,7 +56,7 @@ const starter = function starter() {
 
     game.buttonColorChange();
     game.progressCheck();
-    // game.rangeCheck();
+    game.rangeCheck();
 
     // Stage display value
     $("#stage").text(`Evolution: ${game.stage}`);
@@ -50,6 +69,8 @@ const starter = function starter() {
 
     // Endgame
     if (game.time >= 100) {
+        game.stage = 6;
+
         $("#main-container").addClass("x");
         // $(".main").addClass("y");
 
@@ -70,30 +91,6 @@ const starter = function starter() {
 
 
 
-
-// This starts the game
-// starter();
-
-
-$("#save-name").on("click", function(event) {
-    $("#name-modal").hide();
-    getName();
-    game.startTimer();
-});
-
-$("#play-again").on("click", function(event) {
-    window.location.reload(false); 
-});
-
-$("#admit-defeat").on("click", function(event) {
-    $("#loss-modal").hide();
-    // add something dramatic
-});
-
-const getName = function getName() {
-    game.name = $("#char-name").val();
-    $("#character").text(`Character: ${game.name}`);
-}
 
 
 const game = {
@@ -169,10 +166,21 @@ const game = {
         if (game.bored < 0) {
             game.bored = 0;
         };
-        if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11) {
+        if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11 && game.stage !== 6) {
             $characterSprite.attr("src", "assets/skull.png");
             $("#loss-modal").show();
             clearInterval(interval);
+        } else if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11 && game.stage === 6 && game.time >= 120) {
+            $("#loss-title").text("Triumph!");
+            $("#loss-text").text("You have transcended the Circle of Life, well done.");
+            $("#admit-defeat").text("Revel");
+            $("#loss-modal").show();
+        } else if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11 && game.stage === 6 && game.time < 120) {
+            $("#loss-title").text("Game Over");
+            $("#loss-text").text("Bitter defeat at the hands of the Singularity...");
+            $("#admit-defeat").text("Self Loathe");
+            $("#play-again").text("Seek Redemption");
+            $("#loss-modal").show();
         }
     },
 

@@ -8,6 +8,14 @@ main {
     background-color: #4d908e;
 }
 
+/* #main-container {
+    border: 2px solid red;
+}
+
+#main-subcontainer {
+    border: 2px solid blue;
+} */
+
 /* .row {
     border: 1px solid gray;
 }
@@ -95,12 +103,6 @@ main {
 #play-again:hover {
     filter: brightness(120%);
 }
-
-#stage {
-    /* background-color: aquamarine;2 */
-}
-
-
 
 
 

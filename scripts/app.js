@@ -7,6 +7,15 @@ console.log("Sanity ✅");
 
 
 
+// === Jquery Variables ===
+const $resilience = $("#hunger");
+const $genetics = $("#sleep");
+const $instinct = $("#bored");
+
+const $characterSprite = $("#character-sprite");
+
+
+
 
 // Commented out for streamlined testing
 // $("#name-modal").show();
@@ -42,10 +51,10 @@ const getName = function getName() {
 //     // console.log(movement)
 //     if (movement <= 8) {
 //         $("#sprite").css("-webkit-transform", "")
-//         console.log($("#character-sprite").css("-webkit-transform"));
+//         console.log($characterSprite.css("-webkit-transform"));
 //     } else if (movement >= 660) {
 //         $("#sprite").css("-webkit-transform", "scaleX(-1);")
-//         console.log($("#character-sprite").css("-webkit-transform"));
+//         console.log($characterSprite.css("-webkit-transform"));
 //     }
 // }, 20);
 
@@ -55,7 +64,6 @@ const game = {
     time: 0,
     evolutions: 0,
     progress: 0,
-    totalProgress: 0,
     stage: 1,
     name: '',
     // values: {
@@ -79,7 +87,6 @@ const game = {
         const interval = setInterval(function(){
             game.time++;
             game.progress += 5;
-            game.totalProgress += 1;
             
             // button code
             game.hunger++;
@@ -88,14 +95,14 @@ const game = {
             // game.values.hunger++;
             // game.values.sleep++;
             // game.values.bored++;
-            $("#hunger").text(`Resilience ${game.hunger}`);
-            $("#sleep").text(`Genetics ${game.sleep}`);
-            $("#bored").text(`Instinct ${game.bored}`);
+            $resilience.text(`Resilience ${game.hunger}`);
+            $genetics.text(`Genetics ${game.sleep}`);
+            $instinct.text(`Instinct ${game.bored}`);
             game.buttonColorChange();
             game.progressCheck();
             // THIS IS IMPORTANT, LOSS CONDITION, ENABLE AFTER TESTING
             // if (game.rangeCheck() === true) {
-            //     $("#character-sprite").attr("src", "assets/skull.png");
+            //     $characterSprite.attr("src", "assets/skull.png");
             //     // Maybe change from alert, prevents sprite from changing
             //     $("#loss-modal").show();
             //     clearInterval(interval);
@@ -112,7 +119,22 @@ const game = {
             $("#dynamic").attr("aria-valuenow", game.progress).css("width", game.progress  + "%");
 
             // Total progress bar
-            $("#total-progress").attr("aria-valuenow", game.totalProgress).css("width", game.totalProgress  + "%");
+            $("#total-progress").attr("aria-valuenow", game.time).css("width", game.time  + "%");
+
+            // Endgame
+            if (game.time >= 100) {
+                $("#main-container").addClass("x");
+                // $(".main").addClass("y");
+                
+                // Bunch of little changes for endgame
+                $("#reset").css("display", "none");
+                // Maybe change fonts?
+                $("#title").text("SURVIVE");
+                $("#stage").text(`Evolution: ?????`);
+                $("#character").text(`Character: ?????`);
+                $(".btn").addClass("btn-lg");
+                $characterSprite.attr("src", "");
+            }
         }, 1000);
     },
 
@@ -121,29 +143,29 @@ const game = {
 
         // Hunger Button
         if (game.hunger < 3) {
-            $("#hunger").css("background-color", "#90be6d").css("color", "black");
+            $resilience.css("background-color", "#90be6d").css("color", "black");
         } else if (game.hunger >= 3 && game.hunger <= 6) {
-            $("#hunger").css("background-color", "#f8961e").css("color", "black");
+            $resilience.css("background-color", "#f8961e").css("color", "black");
         } else if (game.hunger > 6) {
-            $("#hunger").css("background-color", "#f94144").css("color", "white");
+            $resilience.css("background-color", "#f94144").css("color", "white");
         };
 
         // Sleep Button
         if (game.sleep < 3) {
-            $("#sleep").css("background-color", "#90be6d").css("color", "black");
+            $genetics.css("background-color", "#90be6d").css("color", "black");
         } else if (game.sleep >= 3 && game.sleep <= 6) {
-            $("#sleep").css("background-color", "#f8961e").css("color", "black");
+            $genetics.css("background-color", "#f8961e").css("color", "black");
         } else if (game.sleep > 6) {
-            $("#sleep").css("background-color", "#f94144").css("color", "white");
+            $genetics.css("background-color", "#f94144").css("color", "white");
         };
 
         // Bored Button
         if (game.bored < 3) {
-            $("#bored").css("background-color", "#90be6d").css("color", "black");
+            $instinct.css("background-color", "#90be6d").css("color", "black");
         } else if (game.bored >= 3 && game.bored <= 6) {
-            $("#bored").css("background-color", "#f8961e").css("color", "black");
+            $instinct.css("background-color", "#f8961e").css("color", "black");
         } else if (game.bored > 6) {
-            $("#bored").css("background-color", "#f94144").css("color", "white");
+            $instinct.css("background-color", "#f94144").css("color", "white");
         };
     },
 
@@ -175,23 +197,23 @@ const game = {
         
         if (game.progress === 100 && game.stage === 1) {
             game.progress = 0;
-            $("#character-sprite").attr("src", "assets/amoeba.png");
-            console.log($("#character-sprite").attr("src"))
+            $characterSprite.attr("src", "assets/amoeba.png");
+            console.log($characterSprite.attr("src"))
             game.stage++;
         } else if (game.progress === 100 && game.stage === 2) {
             game.progress = 0;
-            $("#character-sprite").attr("src", "assets/fish.png");
-            console.log($("#character-sprite").attr("src"));
+            $characterSprite.attr("src", "assets/fish.png");
+            console.log($characterSprite.attr("src"));
             game.stage++;
         } else if (game.progress === 100 && game.stage === 3) {
             game.progress = 0;
-            $("#character-sprite").attr("src", "assets/primate.png");
-            console.log($("#character-sprite").attr("src"));
+            $characterSprite.attr("src", "assets/primate.png");
+            console.log($characterSprite.attr("src"));
             game.stage++;
         } else if (game.progress === 100 && game.stage === 4) {
             game.progress = 0;
-            $("#character-sprite").attr("src", "assets/caveman.gif");
-            console.log($("#character-sprite").attr("src"));
+            $characterSprite.attr("src", "assets/caveman.gif");
+            console.log($characterSprite.attr("src"));
             game.stage++;
         };
     },
@@ -209,22 +231,22 @@ const game = {
 
 
 // Button onClick value reducer funtions
-$("#hunger").on("click", function(event) {
-    $("#hunger").text(`Resilience ${game.hunger}`);
+$resilience.on("click", function(event) {
+    $resilience.text(`Resilience ${game.hunger}`);
     game.hunger--;
     game.buttonColorChange();
     game.rangeCheck();
     game.clicks.hunger++;
 });
-$("#sleep").on("click", function(event) {
-    $("#sleep").text(`Genetics ${game.sleep}`);
+$genetics.on("click", function(event) {
+    $genetics.text(`Genetics ${game.sleep}`);
     game.sleep--;
     game.buttonColorChange();
     game.rangeCheck();
     game.clicks.sleep++;
 });
-$("#bored").on("click", function(event) {
-    $("#bored").text(`Instinct ${game.bored}`);
+$instinct.on("click", function(event) {
+    $instinct.text(`Instinct ${game.bored}`);
     game.bored--;
     game.buttonColorChange();
     game.rangeCheck();
@@ -235,3 +257,4 @@ $("#bored").on("click", function(event) {
 $("#reset").on("click", function(event) {
     window.location.reload(false); 
 });
+

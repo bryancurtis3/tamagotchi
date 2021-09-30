@@ -110,40 +110,43 @@ main {
 
 
 
-/* Rough CSS outline / concept courtesy of Scott Kellum */
+/* Rough approach borrowed from Scott Kellum */
 
 :root {
     --x-speed: 5s;
     --y-speed: 3s;
-    /* --transition-speed: 2.2s; */
 }
   
 .x {
-    animation: x var(--x-speed) linear infinite alternate;
-    /* width: var(--width);
-    height: var(--width); */
+    animation: x var(--x-speed) linear infinite alternate, flip var(--x-speed) linear infinite alternate;
 }
 .y {
     animation: y var(--y-speed) linear infinite alternate;
-    /* width: var(--width);
-    height: var(--width); */
 }
 
 
-/* -webkit-transform: scaleX(-1);
-transform: scaleX(-1); */
 #sprite {
-    /* -webkit-transform: scaleX(-1);
-    transform: scaleX(-1); */
+    /* -webkit-transform: scaleX(-1); */
 }
   
 @keyframes x {
-    100% {
+    to {
         transform: translateX(calc(75vw));
-        /* -webkit-transform: scaleX(-1);
-        transform: scaleX(-1); */
     }
 }
+
+/* @keyframes flip {
+    0% {
+        transform: scaleX(-1);
+    }
+    90% {
+        transform: scaleX(-1);
+        
+    }
+    100% {
+        transform: scaleX(0);
+    }
+} */
 
 @keyframes y {
     100% {

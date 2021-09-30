@@ -15,12 +15,64 @@ const $instinct = $("#bored");
 const $characterSprite = $("#character-sprite");
 
 
-
-
 // Commented out for streamlined testing
-$("#name-modal").show();
+// $("#name-modal").show();
 
-// game.startTimer();
+
+
+let interval = null;
+const starter = function starter() {
+    interval = setInterval(function(){
+    game.time++;
+    game.progress += 5;
+    
+    // button code
+    game.hunger++;
+    game.sleep++;
+    game.bored++;
+
+    $resilience.text(`Resilience ${game.hunger}`);
+    $genetics.text(`Genetics ${game.sleep}`);
+    $instinct.text(`Instinct ${game.bored}`);
+
+    game.buttonColorChange();
+    game.progressCheck();
+    // game.rangeCheck();
+
+    // Stage display value
+    $("#stage").text(`Evolution: ${game.stage}`);
+
+    // Progress bar
+    $("#dynamic").attr("aria-valuenow", game.progress).css("width", game.progress  + "%");
+
+    // Total progress bar
+    $("#total-progress").attr("aria-valuenow", game.time).css("width", game.time  + "%");
+
+    // Endgame
+    if (game.time >= 100) {
+        $("#main-container").addClass("x");
+        // $(".main").addClass("y");
+        
+        // Bunch of little changes for endgame
+        $("#reset").css("display", "none");
+        // Maybe change fonts?
+        $("#title").text("SURVIVE");
+        $("#stage").text(`Evolution: ?????`);
+        $("#character").text(`Character: ?????`);
+        $(".btn").addClass("btn-lg");
+        $characterSprite.attr("src", "");
+        clearInterval(interval);
+    }
+    }, 1000);
+} // === END INTERVAL / TIMER FUNCTION ===
+
+
+
+
+// This starts the game
+// starter();
+
+
 $("#save-name").on("click", function(event) {
     $("#name-modal").hide();
     getName();
@@ -40,24 +92,6 @@ const getName = function getName() {
     game.name = $("#char-name").val();
     $("#character").text(`Character: ${game.name}`);
 }
-
-
-// === INTERVAL / TIMER ===
-// const direction = setInterval(function(){
-//     let movement = $(".x").css("transform");
-//     movement = movement.split("(");
-//     movement = movement[1].split(",");
-//     movement = parseInt(movement[4]);
-//     // console.log(movement)
-//     if (movement <= 8) {
-//         $("#sprite").css("-webkit-transform", "")
-//         console.log($characterSprite.css("-webkit-transform"));
-//     } else if (movement >= 660) {
-//         $("#sprite").css("-webkit-transform", "scaleX(-1);")
-//         console.log($characterSprite.css("-webkit-transform"));
-//     }
-// }, 20);
-
 
 
 const game = {
@@ -82,61 +116,9 @@ const game = {
 
     // ===== Game Methods =====
 
-    // Pretty much everything to do with timers at the moment
+    // Moved the timer code out of the game object to allow for a global variable and because having it in the game object seemed not particularly necessary
     startTimer() {
-        const interval = setInterval(function(){
-            game.time++;
-            game.progress += 5;
-            
-            // button code
-            game.hunger++;
-            game.sleep++;
-            game.bored++;
-            // game.values.hunger++;
-            // game.values.sleep++;
-            // game.values.bored++;
-            $resilience.text(`Resilience ${game.hunger}`);
-            $genetics.text(`Genetics ${game.sleep}`);
-            $instinct.text(`Instinct ${game.bored}`);
-            game.buttonColorChange();
-            game.progressCheck();
-            // THIS IS IMPORTANT, LOSS CONDITION, ENABLE AFTER TESTING
-            if (game.rangeCheck() === true) {
-                $characterSprite.attr("src", "assets/skull.png");
-                // Maybe change from alert, prevents sprite from changing
-                $("#loss-modal").show();
-                clearInterval(interval);
-            }
-            
-            // TEMP CODE MAYBE
 
-
-
-            // Stage display value
-            $("#stage").text(`Evolution: ${game.stage}`);
-
-            // Progress bar
-            $("#dynamic").attr("aria-valuenow", game.progress).css("width", game.progress  + "%");
-
-            // Total progress bar
-            $("#total-progress").attr("aria-valuenow", game.time).css("width", game.time  + "%");
-
-            // Endgame
-            if (game.time >= 100) {
-                $("#main-container").addClass("x");
-                // $(".main").addClass("y");
-                
-                // Bunch of little changes for endgame
-                $("#reset").css("display", "none");
-                // Maybe change fonts?
-                $("#title").text("SURVIVE");
-                $("#stage").text(`Evolution: ?????`);
-                $("#character").text(`Character: ?????`);
-                $(".btn").addClass("btn-lg");
-                $characterSprite.attr("src", "");
-                clearInterval(interval);
-            }
-        }, 1000);
     },
 
     // Method to change button color based on value
@@ -170,59 +152,68 @@ const game = {
         };
     },
 
-    // Considering organizing and condensing button code into functions
-    buttonClick() {
-
-    },
-
     // Maybe a one stop function for keeping values from between 0-10
     rangeCheck() {
         // Checks if above 0 and below 11
-        // Hunger
+        // Resilience
         if (game.hunger < 0) {
             game.hunger = 0;
         };
-        // Sleep
+        // Genetics
         if (game.sleep < 0) {
             game.sleep = 0;
         };
-        // Bored
+        // Instinct
         if (game.bored < 0) {
             game.bored = 0;
         };
-        if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11) return true;
+        if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11) {
+            $characterSprite.attr("src", "assets/skull.png");
+            $("#loss-modal").show();
+            clearInterval(interval);
+        }
     },
 
-    // Checks for game progression and changes evolution and sprite accordingly
+    // Checks for game progression and changes evolution and sprite accordingly and checks for secret ending states
     progressCheck() {
-        
-        // MOVE THIS TO rangeCheck() ??
+
         // Jellyfish ending
-        if (game.progress === 100 && game.stage === 2 && game.clicks.hunger / game.clicks.sleep >= 2 && game.clicks.hunger / game.clicks.bored >= 2) {
+        if (game.progress === 100 && game.stage === 2 && game.clicks.hunger / game.clicks.sleep >= 1.8 && game.clicks.hunger / game.clicks.bored >= 1.8) {
             $characterSprite.attr("src", "assets/jelly.gif");
             $("#loss-text").text("You are a jellyfish... this is your final form");
             $("#admit-defeat").text("Remain Gelatinous");
             $("#loss-modal").show();
-
-            console.log($characterSprite.attr("src"));
             // Fix this
             clearInterval(interval);
             return;
         };
 
         // Gator ending
-        if (game.progress === 100 && game.stage === 3 && game.clicks.bored / game.clicks.sleep >= 2 && game.clicks.bored / game.clicks.hunger >= 2) {
+        if (game.progress === 100 && game.stage === 3 && game.clicks.bored / game.clicks.sleep >= 1.5 && game.clicks.bored / game.clicks.hunger >= 1.5) {
             $characterSprite.attr("src", "assets/gator.png");
             $("#loss-text").text("You are an alligaor... this is your final form");
             $("#admit-defeat").text("Embrace Gaterdome");
             $("#loss-modal").show();
-
-            console.log($characterSprite.attr("src"));
             // Fix this
             clearInterval(interval);
             return;
         };
 
+        // Cincinnati Zoo ending
+        if (game.progress === 100 && game.stage === 4 && game.clicks.sleep / game.clicks.bored >= 1.3 && game.clicks.sleep / game.clicks.hunger >= 1.3) {
+            $characterSprite.attr("src", "assets/gorilla.png");
+            $("#loss-text").text("You are a gorilla... this is your final form... for now");
+            $("#admit-defeat").text("Mourn Harambe");
+            $("#loss-modal").show();
+            // Fix this
+            clearInterval(interval);
+            return;
+        };
+
+
+        // === SECOND HALF OF progressCheck() ===
+
+        // Actual progression logic
         if (game.progress === 100 && game.stage === 1) {
             game.progress = 0;
             $characterSprite.attr("src", "assets/amoeba.png");
@@ -244,6 +235,12 @@ const game = {
             console.log($characterSprite.attr("src"));
             game.stage++;
         };
+    },
+
+     // Special end condition check method
+     secretEnding() {
+                    
+ 
     },
 }; // ===== END OF GAME OBJECT =====
 

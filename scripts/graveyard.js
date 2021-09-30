@@ -59,3 +59,34 @@
         // } else if (game.bored > 6) {
         //     $("#bored").removeClass("btn-success btn-warning").addClass("btn-danger");
         // };
+
+
+
+
+
+// Old range check code when timer was in a method inside game object
+
+    // THIS IS IMPORTANT, LOSS CONDITION, ENABLE AFTER TESTING
+    // if (game.rangeCheck() === true) {
+    //     $characterSprite.attr("src", "assets/skull.png");
+    //     $("#loss-modal").show();
+    //     clearInterval(interval);
+    // }
+
+
+
+// === INTERVAL / TIMER ===
+// const direction = setInterval(function(){
+//     let movement = $(".x").css("transform");
+//     movement = movement.split("(");
+//     movement = movement[1].split(",");
+//     movement = parseInt(movement[4]);
+//     console.log(movement)
+//     if (movement <= 8) {
+//         $("#sprite").css("-webkit-transform", "")
+//         console.log($characterSprite.css("-webkit-transform"));
+//     } else if (movement >= 600) {
+//         $("#sprite").css("-webkit-transform", "scaleX(-1);")
+//         console.log($characterSprite.css("-webkit-transform"));
+//     }
+// }, 20);

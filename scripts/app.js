@@ -10,9 +10,9 @@ console.log("Sanity ✅");
 
 
 // === Jquery Variables ===
-const $resilience = $("#hunger");
-const $genetics = $("#sleep");
-const $instinct = $("#bored");
+const $resilience = $("#resilience");
+const $genetics = $("#genetics");
+const $instinct = $("#instinct");
 const $characterSprite = $("#character-sprite");
 
 
@@ -49,13 +49,13 @@ const starter = function starter() {
     game.progress += 5;
     
     // button code
-    game.hunger++;
-    game.sleep++;
-    game.bored++;
+    game.resilience++;
+    game.genetics++;
+    game.instinct++;
 
-    $resilience.text(`Resilience ${game.hunger}`);
-    $genetics.text(`Genetics ${game.sleep}`);
-    $instinct.text(`Instinct ${game.bored}`);
+    $resilience.text(`Resilience ${game.resilience}`);
+    $genetics.text(`Genetics ${game.genetics}`);
+    $instinct.text(`Instinct ${game.instinct}`);
 
     game.buttonColorChange();
     game.progressCheck();
@@ -101,13 +101,13 @@ const game = {
     stage: 1,
     name: '',
     clicks: {
-        hunger: 0,
-        sleep: 0,
-        bored: 0,
+        resilience: 0,
+        genetics: 0,
+        instinct: 0,
     },
-    hunger: 0,
-    sleep: 0,
-    bored: 0,
+    resilience: 0,
+    genetics: 0,
+    instinct: 0,
 
     // ===== Game Methods =====
 
@@ -119,55 +119,56 @@ const game = {
     // Method to change button color based on value
     buttonColorChange() {
 
-        // Hunger Button
-        if (game.hunger < 3) {
+        // resilience Button
+        if (game.resilience < 3) {
             $resilience.css("background-color", "#90be6d").css("color", "black");
-        } else if (game.hunger >= 3 && game.hunger <= 6) {
+        } else if (game.resilience >= 3 && game.resilience <= 6) {
             $resilience.css("background-color", "#f8961e").css("color", "black");
-        } else if (game.hunger > 6) {
+        } else if (game.resilience > 6) {
             $resilience.css("background-color", "#f94144").css("color", "white");
-        };
+        }
 
-        // Sleep Button
-        if (game.sleep < 3) {
+        // genetics Button
+        if (game.genetics < 3) {
             $genetics.css("background-color", "#90be6d").css("color", "black");
-        } else if (game.sleep >= 3 && game.sleep <= 6) {
+        } else if (game.genetics >= 3 && game.genetics <= 6) {
             $genetics.css("background-color", "#f8961e").css("color", "black");
-        } else if (game.sleep > 6) {
+        } else if (game.genetics > 6) {
             $genetics.css("background-color", "#f94144").css("color", "white");
-        };
+        }
 
-        // Bored Button
-        if (game.bored < 3) {
+        // instinct Button
+        if (game.instinct < 3) {
             $instinct.css("background-color", "#90be6d").css("color", "black");
-        } else if (game.bored >= 3 && game.bored <= 6) {
+        } else if (game.instinct >= 3 && game.instinct <= 6) {
             $instinct.css("background-color", "#f8961e").css("color", "black");
-        } else if (game.bored > 6) {
+        } else if (game.instinct > 6) {
             $instinct.css("background-color", "#f94144").css("color", "white");
-        };
+        }
     },
 
     // Maybe a one stop function for keeping values from between 0-10
     rangeCheck() {
         // Checks if above 0 and below 11
         // Resilience
-        if (game.hunger < 0) {
-            game.hunger = 0;
+        if (game.resilience < 0) {
+            game.resilience = 0;
         };
         // Genetics
-        if (game.sleep < 0) {
-            game.sleep = 0;
+        if (game.genetics < 0) {
+            game.genetics = 0;
         };
         // Instinct
-        if (game.bored < 0) {
-            game.bored = 0;
+        if (game.instinct < 0) {
+            game.instinct = 0;
         };
 
-        if (game.hunger >= 11 || game.sleep >= 11 || game.bored >= 11) {
+        if (game.resilience >= 11 || game.genetics >= 11 || game.instinct >= 11) {
             if (game.stage !== 6) {
                 $characterSprite.attr("src", "assets/skull.png");
                 $("#loss-modal").show();
                 clearInterval(interval);
+
             } else if (game.stage === 6 && game.time >= 120) {
                 $("#main-container").removeClass("x");
                 $("#main-subcontainer").removeClass("y");
@@ -177,6 +178,7 @@ const game = {
                 $("#admit-defeat").text("Revel");
                 $("#loss-modal").show();
                 clearInterval(interval);
+
             } else if (game.stage === 6 && game.time < 120) {
                 $("#main-container").removeClass("x");
                 $("#main-subcontainer").removeClass("y");
@@ -195,7 +197,7 @@ const game = {
     progressCheck() {
 
         // Jellyfish ending
-        if (game.progress === 100 && game.stage === 2 && game.clicks.hunger / game.clicks.sleep >= 1.8 && game.clicks.hunger / game.clicks.bored >= 1.8) {
+        if (game.progress === 100 && game.stage === 2 && game.clicks.resilience / game.clicks.genetics >= 1.8 && game.clicks.resilience / game.clicks.instinct >= 1.8) {
             $characterSprite.attr("src", "assets/jelly.gif");
             $("#loss-text").text("You are a jellyfish... this is your final form");
             $("#admit-defeat").text("Remain Gelatinous");
@@ -206,7 +208,7 @@ const game = {
         };
 
         // Gator ending
-        if (game.progress === 100 && game.stage === 3 && game.clicks.bored / game.clicks.sleep >= 1.5 && game.clicks.bored / game.clicks.hunger >= 1.5) {
+        if (game.progress === 100 && game.stage === 3 && game.clicks.instinct / game.clicks.genetics >= 1.5 && game.clicks.instinct / game.clicks.resilience >= 1.5) {
             $characterSprite.attr("src", "assets/gator.png");
             $("#loss-text").text("You are an alligaor... this is your final form");
             $("#admit-defeat").text("Embrace Gaterdome");
@@ -217,7 +219,7 @@ const game = {
         };
 
         // Cincinnati Zoo ending
-        if (game.progress === 100 && game.stage === 4 && game.clicks.sleep / game.clicks.bored >= 1.3 && game.clicks.sleep / game.clicks.hunger >= 1.3) {
+        if (game.progress === 100 && game.stage === 4 && game.clicks.genetics / game.clicks.instinct >= 1.3 && game.clicks.genetics / game.clicks.resilience >= 1.3) {
             $characterSprite.attr("src", "assets/gorilla.png");
             $("#loss-text").text("You are a gorilla... this is your final form... for now");
             $("#admit-defeat").text("Mourn Harambe");
@@ -268,22 +270,25 @@ const game = {
 
 // Button onClick value reducer fucntions
 $resilience.on("click", function(event) {
-    game.hunger--;
+    game.resilience--;
     game.buttonColorChange();
-    game.clicks.hunger++;
-    $resilience.text(`Resilience ${game.hunger}`);
+    game.clicks.resilience++;
+    game.rangeCheck();
+    $resilience.text(`Resilience ${game.resilience}`);
 });
 $genetics.on("click", function(event) {
-    game.sleep--;
+    game.genetics--;
     game.buttonColorChange();
-    game.clicks.sleep++;
-    $genetics.text(`Genetics ${game.sleep}`);
+    game.clicks.genetics++;
+    game.rangeCheck();
+    $genetics.text(`Genetics ${game.genetics}`);
 });
 $instinct.on("click", function(event) {
-    game.bored--;
+    game.instinct--;
     game.buttonColorChange();
-    game.clicks.bored++;
-    $instinct.text(`Instinct ${game.bored}`);
+    game.clicks.instinct++;
+    game.rangeCheck();
+    $instinct.text(`Instinct ${game.instinct}`);
 });
 
 // This is my favorite code in this

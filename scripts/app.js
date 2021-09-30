@@ -42,6 +42,7 @@ const getName = function getName() {
 
 
 let interval = null;
+let endgame = false;
 const starter = function starter() {
     interval = setInterval(function(){
     game.time++;
@@ -70,7 +71,8 @@ const starter = function starter() {
     $("#total-progress").attr("aria-valuenow", game.time).css("width", game.time  + "%");
 
     // Endgame
-    if (game.time >= 100) {
+    if (game.time >= 100 && endgame === false) {
+        endgame = true;
         game.stage = 6;
 
         $("#main-container").addClass("x");
@@ -84,7 +86,6 @@ const starter = function starter() {
         $("#character").text(`Character: ?????`);
         $(".btn").addClass("btn-lg");
         $characterSprite.attr("src", "");
-        clearInterval(interval);
     }
     }, 1000);
 } // === END INTERVAL / TIMER FUNCTION ===
@@ -161,22 +162,32 @@ const game = {
         if (game.bored < 0) {
             game.bored = 0;
         };
-        if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11 && game.stage !== 6) {
-            $characterSprite.attr("src", "assets/skull.png");
-            $("#loss-modal").show();
-            clearInterval(interval);
-        } else if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11 && game.stage === 6 && game.time >= 120) {
-            $("#loss-title").text("Triumph!");
-            $("#loss-text").text("You have transcended the Circle of Life, well done.");
-            $("#admit-defeat").text("Revel");
-            $("#loss-modal").show();
-        } else if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11 && game.stage === 6 && game.time < 120) {
-            $("#loss-title").text("Game Over");
-            $("#loss-text").text("Bitter defeat at the hands of the Singularity...");
-            $("#admit-defeat").text("Self Loathe");
-            $("#play-again").text("Seek Redemption");
-            $("body").css("filter", "blur(50px)").css("transition", "filter 45s");
-            $("#loss-modal").show();
+
+        if (game.hunger >= 11 || game.sleep >= 11 || game.bored >= 11) {
+            if (game.stage !== 6) {
+                $characterSprite.attr("src", "assets/skull.png");
+                $("#loss-modal").show();
+                clearInterval(interval);
+            } else if (game.stage === 6 && game.time >= 120) {
+                $("#main-container").removeClass("x");
+                $("#main-subcontainer").removeClass("y");
+    
+                $("#loss-title").text("Triumph!");
+                $("#loss-text").text("You have transcended the Circle of Life, well done.");
+                $("#admit-defeat").text("Revel");
+                $("#loss-modal").show();
+                clearInterval(interval);
+            } else if (game.stage === 6 && game.time < 120) {
+                $("#main-container").removeClass("x");
+                $("#main-subcontainer").removeClass("y");
+    
+                $("#loss-title").text("Game Over");
+                $("#loss-text").text("Bitter defeat at the hands of the Singularity...");
+                $("#admit-defeat").text("Self Loathe");
+                $("#play-again").text("Seek Redemption");
+                $("#loss-modal").show();
+                clearInterval(interval);
+            }
         }
     },
 

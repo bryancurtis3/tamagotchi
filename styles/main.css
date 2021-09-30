@@ -8,13 +8,9 @@ main {
     height: 100vh;
 }
 
-/* #main-container {
+#main-container {
     border: 2px solid red;
 }
-
-#main-subcontainer {
-    border: 2px solid blue;
-} */
 
 /* .row {
     border: 1px solid gray;
@@ -23,6 +19,10 @@ main {
 .col {
     border: 2px solid black;
 } */
+
+#main-container {
+    min-width: 70vw;
+}
 
 .state {
     text-align: center;

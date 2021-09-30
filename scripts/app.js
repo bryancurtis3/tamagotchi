@@ -6,7 +6,6 @@ console.log("Sanity ✅");
     // bored === instinct
 
 
-
 // === Jquery Variables ===
 const $resilience = $("#hunger");
 const $genetics = $("#sleep");
@@ -29,7 +28,7 @@ $("#play-again").on("click", function(event) {
 
 $("#admit-defeat").on("click", function(event) {
     $("#loss-modal").hide();
-    // add something dramatic
+    $("body").css("filter", "blur(50px)").css("transition", "filter 100s");
 });
 
 const getName = function getName() {
@@ -72,8 +71,6 @@ const starter = function starter() {
         game.stage = 6;
 
         $("#main-container").addClass("x");
-        // $(".main").addClass("y");
-
         $( "#main-container" ).wrap( "<div id='main-subcontainer' class='y' style='height: 80vh'></div>");
         
         // Bunch of little changes for endgame
@@ -99,11 +96,6 @@ const game = {
     progress: 0,
     stage: 1,
     name: '',
-    // values: {
-    //     hunger: 0,
-    //     sleep: 0,
-    //     bored: 0,
-    // },
     clicks: {
         hunger: 0,
         sleep: 0,
@@ -180,6 +172,7 @@ const game = {
             $("#loss-text").text("Bitter defeat at the hands of the Singularity...");
             $("#admit-defeat").text("Self Loathe");
             $("#play-again").text("Seek Redemption");
+            $("body").css("filter", "blur(50px)").css("transition", "filter 45s");
             $("#loss-modal").show();
         }
     },
@@ -246,12 +239,6 @@ const game = {
             game.stage++;
         };
     },
-
-     // Special end condition check method
-     secretEnding() {
-                    
- 
-    },
 }; // ===== END OF GAME OBJECT =====
 
 
@@ -265,27 +252,24 @@ const game = {
 
 
 
-// Button onClick value reducer funtions
+// Button onClick value reducer fucntions
 $resilience.on("click", function(event) {
-    $resilience.text(`Resilience ${game.hunger}`);
     game.hunger--;
     game.buttonColorChange();
-    game.rangeCheck();
     game.clicks.hunger++;
+    $resilience.text(`Resilience ${game.hunger}`);
 });
 $genetics.on("click", function(event) {
-    $genetics.text(`Genetics ${game.sleep}`);
     game.sleep--;
     game.buttonColorChange();
-    game.rangeCheck();
     game.clicks.sleep++;
+    $genetics.text(`Genetics ${game.sleep}`);
 });
 $instinct.on("click", function(event) {
-    $instinct.text(`Instinct ${game.bored}`);
     game.bored--;
     game.buttonColorChange();
-    game.rangeCheck();
     game.clicks.bored++;
+    $instinct.text(`Instinct ${game.bored}`);
 });
 
 // This is my favorite code in this

@@ -52,6 +52,8 @@ const starter = function starter() {
     if (game.time >= 100) {
         $("#main-container").addClass("x");
         // $(".main").addClass("y");
+
+        $( "#main-container" ).wrap( "<div id='main-subcontainer' class='y' style='height: 80vh'></div>");
         
         // Bunch of little changes for endgame
         $("#reset").css("display", "none");

@@ -18,10 +18,24 @@ const $characterSprite = $("#character-sprite");
 
 // Commented out for streamlined testing
 $("#name-modal").show();
-
+let game = null;
 $("#save-name").on("click", function(event) {
     $("#name-modal").hide();
+    
+    
+    // gameStart();
+    let charName = "";
+    let diff = 1;
+    const getName = function getName() {
+        charName = $("#char-name").val();
+    }
     getName();
+    const getDifficulty = function getDifficulty() {
+        diff = $("#diff").val();
+    }    
+    getDifficulty();
+
+    game = new Session(charName, diff);
     starter();
 });
 
@@ -34,10 +48,14 @@ $("#admit-defeat").on("click", function(event) {
     $("body").css("filter", "blur(50px)").css("transition", "filter 100s");
 });
 
-const getName = function getName() {
-    game.name = $("#char-name").val();
-    $("#character").text(`Character: ${game.name}`);
-}
+// const getName = function getName() {
+//     const charName = $("#char-name").val();
+// }
+
+// const getDifficulty = function getDifficulty() {
+//     const diff = $("#diff").val();
+// }
+
 
 
 
@@ -47,10 +65,9 @@ const starter = function starter() {
     game.time++;
     game.progress += 5;
     
-    // button code
-    game.hunger++;
-    game.sleep++;
-    game.bored++;
+    game.hunger += 1 * game.difficulty;
+    game.sleep += 1  * game.difficulty;
+    game.bored += 1  * game.difficulty;
 
     $resilience.text(`Resilience ${game.hunger}`);
     $genetics.text(`Genetics ${game.sleep}`);
@@ -93,84 +110,80 @@ const starter = function starter() {
 
 
 
-const game = {
-    time: 0,
-    evolutions: 0,
-    progress: 0,
-    stage: 1,
-    name: '',
-    clicks: {
-        hunger: 0,
-        sleep: 0,
-        bored: 0,
-    },
-    hunger: 0,
-    sleep: 0,
-    bored: 0,
-
-    // ===== Game Methods =====
-
-    // Moved the timer code out of the game object to allow for a global variable and because having it in the game object seemed not particularly necessary
-    startTimer() {
-
-    },
+class Session {
+    constructor(difficulty=1, charName="Ronald") {
+        this.time = 0,
+        this.evolutions = 0,
+        this.progress = 0,
+        this.stage = 1,
+        this.name = charName,
+        this.clicks = {
+            hunger: 0,
+            sleep: 0,
+            bored: 0,
+        },
+        this.hunger = 0,
+        this.sleep = 0,
+        this.bored = 0
+        this.difficulty = difficulty;
+    }
 
     // Method to change button color based on value
     buttonColorChange() {
-
+    
         // Hunger Button
-        if (game.hunger < 3) {
+        if (this.hunger < 3) {
             $resilience.css("background-color", "#90be6d").css("color", "black");
-        } else if (game.hunger >= 3 && game.hunger <= 6) {
+        } else if (this.hunger >= 3 && this.hunger <= 6) {
             $resilience.css("background-color", "#f8961e").css("color", "black");
-        } else if (game.hunger > 6) {
+        } else if (this.hunger > 6) {
             $resilience.css("background-color", "#f94144").css("color", "white");
         };
 
         // Sleep Button
-        if (game.sleep < 3) {
+        if (this.sleep < 3) {
             $genetics.css("background-color", "#90be6d").css("color", "black");
-        } else if (game.sleep >= 3 && game.sleep <= 6) {
+        } else if (this.sleep >= 3 && this.sleep <= 6) {
             $genetics.css("background-color", "#f8961e").css("color", "black");
-        } else if (game.sleep > 6) {
+        } else if (this.sleep > 6) {
             $genetics.css("background-color", "#f94144").css("color", "white");
         };
 
         // Bored Button
-        if (game.bored < 3) {
+        if (this.bored < 3) {
             $instinct.css("background-color", "#90be6d").css("color", "black");
-        } else if (game.bored >= 3 && game.bored <= 6) {
+        } else if (this.bored >= 3 && this.bored <= 6) {
             $instinct.css("background-color", "#f8961e").css("color", "black");
-        } else if (game.bored > 6) {
+        } else if (this.bored > 6) {
             $instinct.css("background-color", "#f94144").css("color", "white");
         };
-    },
+    }
 
     // Maybe a one stop function for keeping values from between 0-10
     rangeCheck() {
         // Checks if above 0 and below 11
         // Resilience
-        if (game.hunger < 0) {
-            game.hunger = 0;
+        if (this.hunger < 0) {
+            this.hunger = 0;
         };
         // Genetics
-        if (game.sleep < 0) {
-            game.sleep = 0;
+        if (this.sleep < 0) {
+            this.sleep = 0;
         };
         // Instinct
-        if (game.bored < 0) {
-            game.bored = 0;
+        if (this.bored < 0) {
+            this.bored = 0;
         };
-        if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11 && game.stage !== 6) {
+        if (this.hunger >= 11 || this.sleep >= 11 ||this.bored >= 11 && this.stage !== 6) {
             $characterSprite.attr("src", "assets/skull.png");
             $("#loss-modal").show();
             clearInterval(interval);
-        } else if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11 && game.stage === 6 && game.time >= 120) {
+        } else if (this.hunger >= 11 || this.sleep >= 11 ||this.bored >= 11 && this.stage === 6 && this.time >= 120) {
             $("#loss-title").text("Triumph!");
             $("#loss-text").text("You have transcended the Circle of Life, well done.");
             $("#admit-defeat").text("Revel");
             $("#loss-modal").show();
-        } else if (game.hunger >= 11 || game.sleep >= 11 ||game.bored >= 11 && game.stage === 6 && game.time < 120) {
+        } else if (this.hunger >= 11 || this.sleep >= 11 ||this.bored >= 11 && this.stage === 6 && this.time < 120) {
             $("#loss-title").text("Game Over");
             $("#loss-text").text("Bitter defeat at the hands of the Singularity...");
             $("#admit-defeat").text("Self Loathe");
@@ -178,13 +191,13 @@ const game = {
             $("body").css("filter", "blur(50px)").css("transition", "filter 45s");
             $("#loss-modal").show();
         }
-    },
+    }
 
     // Checks for game progression and changes evolution and sprite accordingly and checks for secret ending states
     progressCheck() {
 
         // Jellyfish ending
-        if (game.progress === 100 && game.stage === 2 && game.clicks.hunger / game.clicks.sleep >= 1.8 && game.clicks.hunger / game.clicks.bored >= 1.8) {
+        if (this.progress === 100 && this.stage === 2 && this.clicks.hunger / this.clicks.sleep >= 1.8 && this.clicks.hunger / this.clicks.bored >= 1.8) {
             $characterSprite.attr("src", "assets/jelly.gif");
             $("#loss-text").text("You are a jellyfish... this is your final form");
             $("#admit-defeat").text("Remain Gelatinous");
@@ -195,7 +208,7 @@ const game = {
         };
 
         // Gator ending
-        if (game.progress === 100 && game.stage === 3 && game.clicks.bored / game.clicks.sleep >= 1.5 && game.clicks.bored / game.clicks.hunger >= 1.5) {
+        if (this.progress === 100 && this.stage === 3 && this.clicks.bored / this.clicks.sleep >= 1.5 && this.clicks.bored / this.clicks.hunger >= 1.5) {
             $characterSprite.attr("src", "assets/gator.png");
             $("#loss-text").text("You are an alligaor... this is your final form");
             $("#admit-defeat").text("Embrace Gaterdome");
@@ -206,7 +219,7 @@ const game = {
         };
 
         // Cincinnati Zoo ending
-        if (game.progress === 100 && game.stage === 4 && game.clicks.sleep / game.clicks.bored >= 1.3 && game.clicks.sleep / game.clicks.hunger >= 1.3) {
+        if (this.progress === 100 && this.stage === 4 && this.clicks.sleep / this.clicks.bored >= 1.3 && this.clicks.sleep / this.clicks.hunger >= 1.3) {
             $characterSprite.attr("src", "assets/gorilla.png");
             $("#loss-text").text("You are a gorilla... this is your final form... for now");
             $("#admit-defeat").text("Mourn Harambe");
@@ -220,33 +233,29 @@ const game = {
         // === SECOND HALF OF progressCheck() ===
 
         // Actual progression logic
-        if (game.progress === 100 && game.stage === 1) {
-            game.progress = 0;
+        if (this.progress === 100 && this.stage === 1) {
+            this.progress = 0;
             $characterSprite.attr("src", "assets/amoeba.png");
             console.log($characterSprite.attr("src"))
-            game.stage++;
-        } else if (game.progress === 100 && game.stage === 2) {
-            game.progress = 0;
+            this.stage++;
+        } else if (this.progress === 100 && this.stage === 2) {
+            this.progress = 0;
             $characterSprite.attr("src", "assets/fish.png");
             console.log($characterSprite.attr("src"));
-            game.stage++;
-        } else if (game.progress === 100 && game.stage === 3) {
-            game.progress = 0;
+            this.stage++;
+        } else if (this.progress === 100 && this.stage === 3) {
+            this.progress = 0;
             $characterSprite.attr("src", "assets/primate.png");
             console.log($characterSprite.attr("src"));
-            game.stage++;
-        } else if (game.progress === 100 && game.stage === 4) {
-            game.progress = 0;
+            this.stage++;
+        } else if (this.progress === 100 && this.stage === 4) {
+            this.progress = 0;
             $characterSprite.attr("src", "assets/caveman.gif");
             console.log($characterSprite.attr("src"));
-            game.stage++;
+            this.stage++;
         };
-    },
-}; // ===== END OF GAME OBJECT =====
-
-
-
-
+    }
+}
 
 
 
@@ -258,18 +267,21 @@ const game = {
 // Button onClick value reducer fucntions
 $resilience.on("click", function(event) {
     game.hunger--;
+    game.rangeCheck();
     game.buttonColorChange();
     game.clicks.hunger++;
     $resilience.text(`Resilience ${game.hunger}`);
 });
 $genetics.on("click", function(event) {
     game.sleep--;
+    game.rangeCheck();
     game.buttonColorChange();
     game.clicks.sleep++;
     $genetics.text(`Genetics ${game.sleep}`);
 });
 $instinct.on("click", function(event) {
     game.bored--;
+    game.rangeCheck();
     game.buttonColorChange();
     game.clicks.bored++;
     $instinct.text(`Instinct ${game.bored}`);

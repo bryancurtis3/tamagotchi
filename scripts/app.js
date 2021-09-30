@@ -1,5 +1,8 @@
 console.log("Sanity ✅");
 
+
+// This is my attempt to see if I understand correctly how to push to a different branch, fingers crossed
+
 // ***** Important Note *****
     // hunger === resilience
     // sleep === genetics

@@ -70,6 +70,7 @@ const starter = function starter() {
     game.bored += 1  * game.difficulty;
 
     $resilience.text(`Resilience ${game.hunger}`);
+    console.log(game.hunger)
     $genetics.text(`Genetics ${game.sleep}`);
     $instinct.text(`Instinct ${game.bored}`);
 
@@ -101,7 +102,6 @@ const starter = function starter() {
         $("#character").text(`Character: ?????`);
         $(".btn").addClass("btn-lg");
         $characterSprite.attr("src", "");
-        clearInterval(interval);
     }
     }, 1000);
 } // === END INTERVAL / TIMER FUNCTION ===

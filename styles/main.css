@@ -8,13 +8,14 @@ main {
     height: 100vh;
 }
 
-/* #main-container {
+#main-container {
     border: 2px solid red;
+    width: 80vw;
 }
 
 #main-subcontainer {
     border: 2px solid blue;
-} */
+}
 
 /* .row {
     border: 1px solid gray;

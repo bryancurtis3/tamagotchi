@@ -1,6 +1,6 @@
 console.log("Sanity ✅");
 
-// === Jquery Variables ===
+// === jQuery Variables ===
 const $resilience = $("#resilience");
 const $genetics = $("#genetics");
 const $instinct = $("#instinct");
@@ -275,6 +275,19 @@ const game = {
         if (game.progress >= 100) {
             game.progress = 0;
             game.stage++;
+        }
+
+        // Reset sprite
+        if (game.stage === 1) {
+            $characterSprite.attr("src", "assets/cell.png");
+        } else if (game.stage === 2) {
+            $characterSprite.attr("src", "assets/amoeba.png");
+        } else if (game.stage === 3) {
+            $characterSprite.attr("src", "assets/fish.png");
+        } else if (game.stage === 4) {
+            $characterSprite.attr("src", "assets/primate.png");
+        } else if (game.stage === 5) {
+            $characterSprite.attr("src", "assets/caveman.gif");
         }
 
         starter();

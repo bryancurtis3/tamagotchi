@@ -55,6 +55,20 @@ main {
     box-shadow: none;
 }
 
+#revert {
+    background-color: #f94144;
+    font-size: 12px;
+    width: 60px;
+    position: absolute;
+    left: 0;
+    color: whitesmoke;
+    opacity: 0;
+}
+
+#revert:hover {
+    opacity: .2;
+}
+
 #reset:hover {
     background-color: whitesmoke;
     opacity: 1;
@@ -89,6 +103,7 @@ main {
 
 #admit-defeat:hover {
     filter: brightness(110%);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 #play-again {
@@ -98,6 +113,19 @@ main {
 
 #play-again:hover {
     filter: brightness(120%);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+#save-name {
+    background-color: #277da1;
+}
+
+#save-name:hover {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+#name-modal {
+    margin: 25% 0;
 }
 
 .x {
@@ -112,43 +140,26 @@ main {
 
 
 
-/* Rough approach borrowed from Scott Kellum */
 
-:root {
-    --x-speed: 5s;
-    --y-speed: 3s;
-}
   
 .x {
-    animation: x var(--x-speed) linear infinite alternate, flip var(--x-speed) linear infinite alternate;
+    animation: x 5s linear infinite alternate;
 }
+
 .y {
-    animation: y var(--y-speed) linear infinite alternate;
+    animation: y 3s linear infinite alternate;
 }
 
-
-#sprite {
-    /* -webkit-transform: scaleX(-1); */
-}
   
 @keyframes x {
+    from {
+        transform: translateX(-5vw);
+    }
     to {
         transform: translateX(calc(75vw));
     }
 }
 
-/* @keyframes flip {
-    0% {
-        transform: scaleX(-1);
-    }
-    90% {
-        transform: scaleX(-1);
-        
-    }
-    100% {
-        transform: scaleX(0);
-    }
-} */
 
 @keyframes y {
     100% {

@@ -1,14 +1,5 @@
 console.log("Sanity ✅");
 
-
-// This is my attempt to see if I understand correctly how to push to a different branch, fingers crossed
-
-// ***** Important Note *****
-    // hunger === resilience
-    // sleep === genetics
-    // bored === instinct
-
-
 // === Jquery Variables ===
 const $resilience = $("#resilience");
 const $genetics = $("#genetics");
@@ -16,7 +7,6 @@ const $instinct = $("#instinct");
 const $characterSprite = $("#character-sprite");
 
 
-// Commented out for streamlined testing
 $("#name-modal").show();
 
 $("#save-name").on("click", function(event) {
@@ -45,48 +35,54 @@ let interval = null;
 let endgame = false;
 const starter = function starter() {
     interval = setInterval(function(){
-    game.time++;
-    game.progress += 5;
-    
-    // button code
-    game.resilience++;
-    game.genetics++;
-    game.instinct++;
-
-    $resilience.text(`Resilience ${game.resilience}`);
-    $genetics.text(`Genetics ${game.genetics}`);
-    $instinct.text(`Instinct ${game.instinct}`);
-
-    game.buttonColorChange();
-    game.progressCheck();
-    game.rangeCheck();
-
-    // Stage display value
-    $("#stage").text(`Evolution: ${game.stage}`);
-
-    // Progress bar
-    $("#dynamic").attr("aria-valuenow", game.progress).css("width", game.progress  + "%");
-
-    // Total progress bar
-    $("#total-progress").attr("aria-valuenow", game.time).css("width", game.time  + "%");
-
-    // Endgame
-    if (game.time >= 100 && endgame === false) {
-        endgame = true;
-        game.stage = 6;
-
-        $("#main-container").addClass("x");
-        $( "#main-container" ).wrap( "<div id='main-subcontainer' class='y' style='height: 80vh'></div>");
+        console.log("intervaling")
+        game.time++;
+        game.progress += 5;
         
-        // Bunch of little changes for endgame
-        $("#reset").css("display", "none");
-        // Maybe change fonts?
-        $("#title").text("SURVIVE");
-        $("#stage").text(`Evolution: ?????`);
-        $("#character").text(`Character: ?????`);
-        $(".btn").addClass("btn-lg");
-        $characterSprite.attr("src", "");
-    }
+        // button code
+        game.resilience++;
+        game.genetics++;
+        game.instinct++;
+
+        $resilience.text(`Resilience ${game.resilience}`);
+        $genetics.text(`Genetics ${game.genetics}`);
+        $instinct.text(`Instinct ${game.instinct}`);
+
+        game.buttonColorChange();
+        game.progressCheck();
+        game.rangeCheck();
+
+        // Evolution display value
+        if (game.stage < 6) $("#stage").text(`Evolution: ${game.stage}`);
+        
+
+        // Progress bar
+        $("#dynamic").attr("aria-valuenow", game.progress).css("width", game.progress  + "%");
+
+        // Total progress bar
+        $("#total-progress").attr("aria-valuenow", game.time).css("width", game.time  + "%");
+
+        // Endgame condition
+        if (game.time >= 100 && endgame === false) {
+            endgame = true;
+            game.stage = 6;
+
+            $("#main-container").addClass("x");
+            $( "#main-container" ).wrap( "<div id='main-subcontainer' class='y' style='height: 80vh'></div>");
+
+            // Slows it down
+            $(".x").css("animation", "x 8s linear infinite alternate");
+            $(".y").css("animation", "y 5s linear infinite alternate");
+            
+            // Bunch of little changes for endgame
+            $("#reset").css("display", "none");
+            // Maybe change fonts?
+            $("#title").text("SURVIVE");
+            $("#stage").text(`Evolution: ?????`);
+            $("#character").text(`Character: ?????`);
+            $(".btn").addClass("btn-lg");
+            $characterSprite.attr("src", "");
+        }
     }, 1000);
 } // === END INTERVAL / TIMER FUNCTION ===
 
@@ -150,15 +146,12 @@ const game = {
     // Maybe a one stop function for keeping values from between 0-10
     rangeCheck() {
         // Checks if above 0 and below 11
-        // Resilience
         if (game.resilience < 0) {
             game.resilience = 0;
         };
-        // Genetics
         if (game.genetics < 0) {
             game.genetics = 0;
         };
-        // Instinct
         if (game.instinct < 0) {
             game.instinct = 0;
         };
@@ -170,6 +163,7 @@ const game = {
                 clearInterval(interval);
 
             } else if (game.stage === 6 && game.time >= 120) {
+                // Removes movement
                 $("#main-container").removeClass("x");
                 $("#main-subcontainer").removeClass("y");
     
@@ -180,9 +174,10 @@ const game = {
                 clearInterval(interval);
 
             } else if (game.stage === 6 && game.time < 120) {
+                // Removes movement
                 $("#main-container").removeClass("x");
                 $("#main-subcontainer").removeClass("y");
-    
+
                 $("#loss-title").text("Game Over");
                 $("#loss-text").text("Bitter defeat at the hands of the Singularity...");
                 $("#admit-defeat").text("Self Loathe");
@@ -255,11 +250,41 @@ const game = {
             game.stage++;
         };
     },
+
+    revert(){
+        // Secret presenting tool
+
+        // Reset values
+        game.resilience = 0;
+        game.genetics = 0;
+        game.instinct = 0;
+
+        // Average all the clicks between the buttons
+        let totalClicks = game.clicks.resilience + game.clicks.genetics + game.clicks.instinct;
+        let avgClicks = Math.floor(totalClicks / 3);
+        game.clicks.resilience = avgClicks;
+        game.clicks.genetics = avgClicks;
+        game.clicks.instinct = avgClicks;
+
+        // Incase some blur was added
+        $("body").css("filter", "blur(0px)").css("transition", "filter 1s");
+
+        // Reset progress
+        if (game.progress >= 100) {
+            game.progress = 0;
+            game.stage++;
+        }
+
+        starter();
+    }
 }; // ===== END OF GAME OBJECT =====
 
 
 
-
+// Secret revert button functionality
+$("#revert").on("click", function(event) {
+    game.revert();
+});
 
 
 
@@ -281,7 +306,7 @@ $genetics.on("click", function(event) {
     game.buttonColorChange();
     game.clicks.genetics++;
     game.rangeCheck();
-    $genetics.text(`Genetics ${game.genetics}`);
+    $genetics.text(`Genetics ${game.genetics}`)
 });
 $instinct.on("click", function(event) {
     game.instinct--;

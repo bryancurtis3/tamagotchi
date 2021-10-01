@@ -104,6 +104,7 @@ main {
 
 #save-name {
     background-color: #277da1;
+    color: white;
 }
 
 #save-name:hover {

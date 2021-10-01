@@ -6,55 +6,60 @@ const $genetics = $("#genetics");
 const $instinct = $("#instinct");
 const $characterSprite = $("#character-sprite");
 
-
+// Character naming
 $("#name-modal").show();
 
+// Facilitates game start
 $("#save-name").on("click", function(event) {
     $("#name-modal").hide();
     getName();
     starter();
 });
 
+// Cheater play again code
 $("#play-again").on("click", function(event) {
     window.location.reload(false); 
 });
 
+// Handles give up state
 $("#admit-defeat").on("click", function(event) {
     $("#loss-modal").hide();
     $("body").css("filter", "blur(50px)").css("transition", "filter 100s");
 });
 
+// Fetches name input
 const getName = function getName() {
     game.name = $("#char-name").val();
     $("#character").text(`Character: ${game.name}`);
 }
 
 
-
+// Making variables global
 let interval = null;
 let endgame = false;
+
 const starter = function starter() {
     interval = setInterval(function(){
-        console.log("intervaling")
         game.time++;
         game.progress += 5;
         
-        // button code
+        // Iterate values
         game.resilience++;
         game.genetics++;
         game.instinct++;
 
+        // Manage display values
         $resilience.text(`Resilience ${game.resilience}`);
         $genetics.text(`Genetics ${game.genetics}`);
         $instinct.text(`Instinct ${game.instinct}`);
 
+        // Monitoring functions
         game.buttonColorChange();
         game.progressCheck();
         game.rangeCheck();
 
         // Evolution display value
         if (game.stage < 6) $("#stage").text(`Evolution: ${game.stage}`);
-        
 
         // Progress bar
         $("#dynamic").attr("aria-valuenow", game.progress).css("width", game.progress  + "%");
@@ -68,7 +73,7 @@ const starter = function starter() {
             game.stage = 6;
 
             $("#main-container").addClass("x");
-            $( "#main-container" ).wrap( "<div id='main-subcontainer' class='y' style='height: 80vh'></div>");
+            $( "#main-container" ).wrap( "<div id='main-subcontainer' class='y' style='height: 80vh'></div>");//////////// Code Snippet /////////////////
 
             // Slows it down
             $(".x").css("animation", "x 8s linear infinite alternate");
@@ -115,7 +120,7 @@ const game = {
     // Method to change button color based on value
     buttonColorChange() {
 
-        // resilience Button
+        // Resilience Button
         if (game.resilience < 3) {
             $resilience.css("background-color", "#90be6d").css("color", "black");
         } else if (game.resilience >= 3 && game.resilience <= 6) {
@@ -124,7 +129,7 @@ const game = {
             $resilience.css("background-color", "#f94144").css("color", "white");
         }
 
-        // genetics Button
+        // Genetics Button
         if (game.genetics < 3) {
             $genetics.css("background-color", "#90be6d").css("color", "black");
         } else if (game.genetics >= 3 && game.genetics <= 6) {
@@ -133,7 +138,7 @@ const game = {
             $genetics.css("background-color", "#f94144").css("color", "white");
         }
 
-        // instinct Button
+        // Instinct Button
         if (game.instinct < 3) {
             $instinct.css("background-color", "#90be6d").css("color", "black");
         } else if (game.instinct >= 3 && game.instinct <= 6) {
@@ -231,12 +236,10 @@ const game = {
         if (game.progress === 100 && game.stage === 1) {
             game.progress = 0;
             $characterSprite.attr("src", "assets/amoeba.png");
-            console.log($characterSprite.attr("src"))
             game.stage++;
         } else if (game.progress === 100 && game.stage === 2) {
             game.progress = 0;
             $characterSprite.attr("src", "assets/fish.png");
-            console.log($characterSprite.attr("src"));
             game.stage++;
         } else if (game.progress === 100 && game.stage === 3) {
             game.progress = 0;
@@ -246,14 +249,13 @@ const game = {
         } else if (game.progress === 100 && game.stage === 4) {
             game.progress = 0;
             $characterSprite.attr("src", "assets/caveman.gif");
-            console.log($characterSprite.attr("src"));
             game.stage++;
         };
     },
 
+    // Secret presenting tool
     revert(){
-        // Secret presenting tool
-
+        
         // Reset values
         game.resilience = 0;
         game.genetics = 0;
@@ -316,8 +318,8 @@ $instinct.on("click", function(event) {
     $instinct.text(`Instinct ${game.instinct}`);
 });
 
-// This is my favorite code in this
+// Cheater reset button
 $("#reset").on("click", function(event) {
-    window.location.reload(false); 
+    window.location.reload(false);////////////////////////////////// Code Snippet ///////////////////////////////////////////
 });
 

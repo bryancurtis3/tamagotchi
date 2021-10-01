@@ -25,6 +25,12 @@ My approach was basically to start with the simplest design I could and build as
 
 The only real unsolved problem of this project was mirroring the image based on movement direction. That problem proved quite substantial as a result of the way I built out the animation code, but ultimately it was a functionality that I decided was insignificant compared to other things I could implement in the time necessary to implement the mirroring.
 
+=== Project Roadmap ===
+
+This was used for planning ideas as well as structuring my use of time throughout the project
+
+[Notion Roadmap](https://www.notion.so/421bfc468da14d2c8da71328a7ee7af9?v=87edea04bc1b4a3691b29d808af5c05a)
+
 
 === Wireframe ===
 

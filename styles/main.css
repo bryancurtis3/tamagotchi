@@ -8,19 +8,22 @@ main {
     height: 100vh;
 }
 
-/* #main-container {
-    border: 2px solid red;
-} */
 
-/* .row {
-    border: 1px solid gray;
+/* Button micro interaction */
+.btn:hover {
+    filter: brightness(120%);
+    transition: 0.2 ease-in-out;
 }
 
-.col {
-    border: 2px solid black;
-} */
+/* Adds depth */
+.col .btn {
+    background-color: #90be6d;
+    color: black;
+    z-index: 10;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
 
-
+/* Styling for evolution and name displays */
 .state {
     text-align: center;
     background-color: #90be6d;
@@ -29,54 +32,45 @@ main {
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.col .btn {
-    background-color: #90be6d;
-    color: black;
-    z-index: 10;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-}
-
-.btn:hover {
-    filter: brightness(120%);
-    transition: 0.2 ease-in-out;
-}
-
+/* Give up button for loss modal */
 #admit-defeat {
     background-color: #f9844a;
     filter: brightness(80%);
     color: white;
 }
-
 #admit-defeat:hover {
     filter: brightness(110%);
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
+/* Margin for the header (the border alos just serves to provide more spacing) */
 #header {
     border: 12px solid #4d908e;
     margin: 5px;
 }
 
+/* Some values that help keep things consistent on the page */
 #main-container {
     max-width: 800px;
     min-width: 70vw;
 }
 
+/* Adjust naming modal placement */
 #name-modal {
     margin: 25% 0;
 }
 
+/* Play again modal button */
 #play-again {
     background-color: #277da1;
     color: white;
 }
-
 #play-again:hover {
     filter: brightness(120%);
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-
+/* Reset button */
 #reset {
     background-color: #277da1;
     font-size: 12px;
@@ -143,7 +137,6 @@ main {
     animation: y 3s linear infinite alternate;
 }
 
-  
 @keyframes x {
     from {
         transform: translateX(-5vw);
@@ -152,7 +145,6 @@ main {
         transform: translateX(calc(75vw));
     }
 }
-
 
 @keyframes y {
     100% {

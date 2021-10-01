@@ -162,22 +162,24 @@ const game = {
         };
 
         if (game.resilience >= 11 || game.genetics >= 11 || game.instinct >= 11) {
+            // Standard game over
             if (game.stage !== 6) {
                 $characterSprite.attr("src", "assets/skull.png");
                 $("#loss-modal").show();
                 clearInterval(interval);
 
+                // Endgame victory
             } else if (game.stage === 6 && game.time >= 120) {
-                // Removes movement
                 $("#main-container").removeClass("x");
                 $("#main-subcontainer").removeClass("y");
-    
+  
                 $("#loss-title").text("Triumph!");
                 $("#loss-text").text("You have transcended the Circle of Life, well done.");
                 $("#admit-defeat").text("Revel");
                 $("#loss-modal").show();
                 clearInterval(interval);
 
+                // Endgame defeat
             } else if (game.stage === 6 && game.time < 120) {
                 // Removes movement
                 $("#main-container").removeClass("x");
@@ -213,7 +215,6 @@ const game = {
             $("#loss-text").text("You are an alligaor... this is your final form");
             $("#admit-defeat").text("Embrace Gaterdome");
             $("#loss-modal").show();
-            // Fix this
             clearInterval(interval);
             return;
         };
@@ -224,7 +225,6 @@ const game = {
             $("#loss-text").text("You are a gorilla... this is your final form... for now");
             $("#admit-defeat").text("Mourn Harambe");
             $("#loss-modal").show();
-            // Fix this
             clearInterval(interval);
             return;
         };
@@ -296,16 +296,6 @@ const game = {
 
 
 
-// Secret revert button functionality
-$("#revert").on("click", function(event) {
-    game.revert();
-});
-
-
-
-
-
-
 
 
 // Button onClick value reducer fucntions
@@ -336,3 +326,7 @@ $("#reset").on("click", function(event) {
     window.location.reload(false);////////////////////////////////// Code Snippet ///////////////////////////////////////////
 });
 
+// Secret revert button functionality
+$("#revert").on("click", function(event) {
+    game.revert();
+});
